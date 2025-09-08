@@ -10,8 +10,13 @@ APP_BACKEND_PORT="8000"
 
 # Passthrough caches
 REGISTRY_BASE="registry.${APP_DOMAIN}"
-REGISTRY_DOCKER="${REGISTRY_BASE}/dockerhub"
-REGISTRY_GHCR="${REGISTRY_BASE}/ghcr"
+export REGISTRY_DOCKER="${REGISTRY_BASE}/dockerhub"
+export REGISTRY_GHCR="${REGISTRY_BASE}/ghcr"
+
+COMMON_RUN_ARGS=(
+  --rm
+  --interactive
+)
 
 # Helper arrays
 COMMON_BUILD_ARGS=(
