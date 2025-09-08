@@ -1,12 +1,13 @@
 #!/usr/bin/env bash
+# shellcheck disable=SC2034
 set -eou pipefail
 
 # Build and runtime app vars
-APP_NAME='ccc'
-APP_DOMAIN='poppet.io'
-APP_FRONTEND_FQDN="${APP_NAME}.${APP_DOMAIN}"
-APP_BACKEND_FQDN="api.${APP_DOMAIN}"
-APP_BACKEND_PORT="8000"
+export APP_NAME='ccc'
+export APP_DOMAIN='poppet.io'
+export APP_FRONTEND_FQDN="${APP_NAME}.${APP_DOMAIN}"
+export APP_BACKEND_FQDN="api.${APP_DOMAIN}"
+export APP_BACKEND_PORT="8000"
 
 # Passthrough caches
 REGISTRY_BASE="registry.${APP_DOMAIN}"
@@ -20,7 +21,7 @@ COMMON_RUN_ARGS=(
 
 # Helper arrays
 COMMON_BUILD_ARGS=(
-  --build-arg REGISTRY_DOCKER=${REGISTRY_DOCKER}
-  --build-arg REGISTRY_GHCR=${REGISTRY_GHCR}
+  --build-arg "REGISTRY_DOCKER=${REGISTRY_DOCKER}"
+  --build-arg "REGISTRY_GHCR=${REGISTRY_GHCR}"
   .
 )
