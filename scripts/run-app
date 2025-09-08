@@ -5,7 +5,8 @@ cd $(git rev-parse --show-toplevel)
 
 source scripts/env
 
-./scripts/build
+./scripts/util/build frontend
+./scripts/util/build backend
 
 trap "docker compose down" SIGINT SIGQUIT SIGTERM
 

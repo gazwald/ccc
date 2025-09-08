@@ -1,0 +1,12 @@
+ARG REGISTRY_GHCR="ghcr.io"
+FROM ${REGISTRY_GHCR}/astral-sh/uv:python3.13-bookworm
+
+SHELL ["/bin/bash", "-c"]
+
+ENV UV_COMPILE_BYTECODE=1
+ENV UV_LINK_MODE=copy
+ENV PATH=/root/.local/bin:$PATH
+
+RUN uv tool install yamllint \
+ && uv tool install pyright \
+ && uv tool install isort

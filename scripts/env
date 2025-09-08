@@ -2,7 +2,7 @@
 set -eou pipefail
 
 # Build and runtime app vars
-APP_NAME='reflex_poc'
+APP_NAME='ccc'
 APP_DOMAIN='poppet.io'
 APP_FRONTEND_FQDN="${APP_NAME}.${APP_DOMAIN}"
 APP_BACKEND_FQDN="api.${APP_DOMAIN}"
@@ -20,10 +20,7 @@ COMMON_RUN_ARGS=(
 
 # Helper arrays
 COMMON_BUILD_ARGS=(
-  --file "docker/Dockerfile"
-  --build-arg APP_FRONTEND_FQDN=${APP_FRONTEND_FQDN}
-  --build-arg APP_BACKEND_FQDN=${APP_BACKEND_FQDN}
-  --build-arg APP_BACKEND_PORT=${APP_BACKEND_PORT}
   --build-arg REGISTRY_DOCKER=${REGISTRY_DOCKER}
+  --build-arg REGISTRY_GHCR=${REGISTRY_GHCR}
   .
 )

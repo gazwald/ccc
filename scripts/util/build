@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+set -eou pipefail
+
+cd $(git rev-parse --show-toplevel)
+
+source scripts/env
+
+CONTAINER=$1
+DYNAMIC_BUILD_ARGS=()
+
+case $CONTAINER in
+  frontend)
+    DYNAMIC_BUILD_ARGS+=(
+      --target "app-frontend"
+      --file "docker/Dockerfile"
+      --build-arg APP_FRONTEND_FQDN=${APP_FRONTEND_FQDN}
+      --build-arg APP_BACKEND_FQDN=${APP_BACKEND_FQDN}
+      --build-arg APP_BACKEND_PORT=${APP_BACKEND_PORT}
+    )
+    ;;
+  backend)
+    DYNAMIC_BUILD_ARGS+=(
+      --target "app-backend"
+      --file "docker/Dockerfile"
+      --build-arg APP_FRONTEND_FQDN=${APP_FRONTEND_FQDN}
+      --build-arg APP_BACKEND_FQDN=${APP_BACKEND_FQDN}
+      --build-arg APP_BACKEND_PORT=${APP_BACKEND_PORT}
+    )
+    ;;
+  tools)
+    DYNAMIC_BUILD_ARGS+=(
+      --file "docker/Dockerfile.tools"
+    )
+    ;;
+  *)
+    echo "$CONTAINER is unknown?"
+    exit 1
+esac
+
+echo "+++ Building $CONTAINER +++"
+
+docker build ${DYNAMIC_BUILD_ARGS[*]} \
+             --tag ${APP_NAME}-${CONTAINER}:latest \
+             ${COMMON_BUILD_ARGS[*]}

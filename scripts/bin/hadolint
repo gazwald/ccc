@@ -5,5 +5,10 @@ cd $(git rev-parse --show-toplevel)
 
 source scripts/env
 
-docker run ${COMMON_RUN_ARGS[*]} \
-           ${REGISTRY_DOCKER}/hadolint/hadolint < docker/Dockerfile
+echo "+++ Hadolint +++"
+
+for dockerfile in docker/Dockerfile*; do
+  echo "Checking $dockerfile"
+  docker run ${COMMON_RUN_ARGS[*]} \
+             ${REGISTRY_DOCKER}/hadolint/hadolint < $dockerfile
+done
