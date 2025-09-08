@@ -1,0 +1,48 @@
+services:
+  backend:
+    image: ${APP_NAME:-reflex_poc}-backend:latest
+    environment:
+      REFLEX_DB_URL: sqlite:///data/reflex.db
+      REFLEX_CHECK_LATEST_VERSION: "false"
+    ports:
+      - ${APP_BACKEND_PORT:-8000}:${APP_BACKEND_PORT:-8000}
+    volumes:
+      - db-data:/app/data
+      - upload-data:/app/uploaded_files
+    restart: always
+
+  frontend:
+    image: ${APP_NAME:-reflex_poc}-frontend:latest
+    environment:
+      DOMAIN: ${APP_DOMAIN:-localhost}
+    ports:
+      - 8080:80
+      - 8443:443
+    volumes:
+      - caddy-data:/root/.caddy
+    restart: always
+    depends_on:
+      - backend
+
+#  db:
+#    image: postgres
+#    restart: always
+#    # set shared memory limit when using docker compose
+#    shm_size: 128mb
+#    # or set shared memory limit when deploy via swarm stack
+#    #volumes:
+#    #  - type: tmpfs
+#    #    target: /dev/shm
+#    #    tmpfs:
+#    #      size: 134217728 # 128*2^20 bytes = 128Mb
+#    environment:
+#      POSTGRES_PASSWORD: example
+
+
+volumes:
+  # SQLite data
+  db-data:
+  # Uploaded files
+  upload-data:
+  # TLS keys and certificates
+  caddy-data:

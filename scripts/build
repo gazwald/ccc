@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+set -xeou pipefail
+
+cd $(git rev-parse --show-toplevel)
+
+source scripts/env
+
+echo '+++ Building frontend +++'
+
+docker build --target app-frontend \
+             --tag ${APP_NAME}-frontend:latest \
+             ${COMMON_BUILD_ARGS[*]}
+
+echo '+++ Building backend +++'
+
+docker build --target app-backend \
+             --tag ${APP_NAME}-backend:latest \
+             ${COMMON_BUILD_ARGS[*]}

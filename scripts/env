@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+set -eou pipefail
+
+# Build and runtime app vars
+APP_NAME='reflex_poc'
+APP_DOMAIN='poppet.io'
+APP_FRONTEND_FQDN="${APP_NAME}.${APP_DOMAIN}"
+APP_BACKEND_FQDN="api.${APP_DOMAIN}"
+APP_BACKEND_PORT="8000"
+
+# Passthrough caches
+REGISTRY_BASE="registry.${APP_DOMAIN}"
+REGISTRY_DOCKER="${REGISTRY_BASE}/dockerhub"
+REGISTRY_GHCR="${REGISTRY_BASE}/ghcr"
+
+# Helper arrays
+COMMON_BUILD_ARGS=(
+  --file "docker/Dockerfile"
+  --build-arg APP_FRONTEND_FQDN=${APP_FRONTEND_FQDN}
+  --build-arg APP_BACKEND_FQDN=${APP_BACKEND_FQDN}
+  --build-arg APP_BACKEND_PORT=${APP_BACKEND_PORT}
+  --build-arg REGISTRY_DOCKER=${REGISTRY_DOCKER}
+  .
+)
