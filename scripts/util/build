@@ -7,6 +7,7 @@ source scripts/env
 
 CONTAINER=$1
 DYNAMIC_BUILD_ARGS=()
+ECHO_CONTAINER="true"
 
 case $CONTAINER in
   frontend)
@@ -30,14 +31,18 @@ case $CONTAINER in
   tools)
     DYNAMIC_BUILD_ARGS+=(
       --file "docker/Dockerfile.tools"
+      --quiet
     )
+    ECHO_CONTAINER="false"
     ;;
   *)
     echo "$CONTAINER is unknown?"
     exit 1
 esac
 
-echo "+++ Building $CONTAINER +++"
+if [[ ${ECHO_CONTAINER} = "true" ]]; then
+  echo "+++ Building $CONTAINER +++"
+fi
 
 docker build ${DYNAMIC_BUILD_ARGS[*]} \
              --tag ${APP_NAME}-${CONTAINER}:latest \
