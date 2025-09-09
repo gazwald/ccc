@@ -6,7 +6,9 @@ cd "$(git rev-parse --show-toplevel)"
 source scripts/env
 
 CONTAINER=$1
-DYNAMIC_BUILD_ARGS=()
+DYNAMIC_BUILD_ARGS=(
+  --tag "${APP_NAME}-${CONTAINER}:latest" \
+)
 ECHO_CONTAINER="true"
 
 case $CONTAINER in
@@ -31,7 +33,6 @@ case $CONTAINER in
   tools)
     DYNAMIC_BUILD_ARGS+=(
       --file "docker/Dockerfile.tools"
-      --quiet
     )
     ECHO_CONTAINER="false"
     ;;
@@ -45,5 +46,4 @@ if [[ ${ECHO_CONTAINER} = "true" ]]; then
 fi
 
 docker build "${DYNAMIC_BUILD_ARGS[@]}" \
-             --tag "${APP_NAME}-${CONTAINER}:latest" \
              "${COMMON_BUILD_ARGS[@]}"
