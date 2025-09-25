@@ -10,5 +10,5 @@ echo "+++ Hadolint +++"
 for dockerfile in docker/Dockerfile*; do
   echo "Checking $dockerfile"
   docker run "${COMMON_RUN_ARGS[@]}" \
-             "${REGISTRY_DOCKER}/hadolint/hadolint:latest" < "$dockerfile"
+             "${DOCKER_IMAGE_HADOLINT}" < "$dockerfile"
 done

@@ -8,8 +8,6 @@ source scripts/env
 ./scripts/util/build tools
 
 docker run "${COMMON_RUN_ARGS[@]}" \
-           --tty \
-           --mount "type=bind,src=${PWD},dst=${PWD}" \
-           --workdir "${PWD}" \
+           "${COMMON_RUN_UTIL_ARGS[@]}" \
            "${APP_NAME}-tools:latest" \
            "${@}"

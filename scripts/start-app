@@ -5,8 +5,7 @@ cd "$(git rev-parse --show-toplevel)"
 
 source scripts/env
 
-./scripts/util/build frontend
-./scripts/util/build backend
+./scripts/util/build app
 
 trap "./scripts/stop-app" EXIT
 

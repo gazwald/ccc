@@ -5,23 +5,23 @@ set -eou pipefail
 # Build and runtime app vars
 export APP_NAME='ccc'
 export APP_DOMAIN='poppet.io'
-export APP_FRONTEND_FQDN="${APP_NAME}.${APP_DOMAIN}"
-export APP_BACKEND_FQDN="api.${APP_DOMAIN}"
-export APP_BACKEND_PORT="8000"
 
-# Passthrough caches
-REGISTRY_BASE="registry.${APP_DOMAIN}"
-export REGISTRY_DOCKER="${REGISTRY_BASE}/dockerhub"
-export REGISTRY_GHCR="${REGISTRY_BASE}/ghcr"
+export DOCKER_REGISTRY="registry.poppet.io"
+export DOCKER_IMAGE_HADOLINT="$DOCKER_REGISTRY/dockerhub/hadolint/hadolint:latest"
+export DOCKER_IMAGE_SHELLCHECK="$DOCKER_REGISTRY/dockerhub/koalaman/shellcheck:stable"
 
 COMMON_RUN_ARGS=(
   --rm
   --interactive
 )
+COMMON_RUN_UTIL_ARGS=(
+  --tty
+  --mount "type=bind,src=${PWD},dst=${PWD}"
+  --mount "type=volume,src=ccc-tools-venv,dst=${PWD}/.venv"
+  --workdir "${PWD}"
+)
 
 # Helper arrays
 COMMON_BUILD_ARGS=(
-  --build-arg "REGISTRY_DOCKER=${REGISTRY_DOCKER}"
-  --build-arg "REGISTRY_GHCR=${REGISTRY_GHCR}"
   .
 )

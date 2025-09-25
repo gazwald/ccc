@@ -1,105 +1,51 @@
-# Multistage Reflex Dockerfile
-# Cobbled together from https://github.com/reflex-dev/reflex/tree/main/docker-example
 # +++++++++++++++
-# Base Target
+#     Builder
 # +++++++++++++++
-ARG REGISTRY_DOCKER="docker.io"
-FROM ${REGISTRY_DOCKER}/library/python:3.13 AS base
+FROM registry.poppet.io/ghcr/astral-sh/uv:0.8-python3.13-trixie-slim AS builder
 
 ENV UV_COMPILE_BYTECODE=1
 ENV UV_LINK_MODE=copy
-
-# Setup reflex user
-RUN adduser --disabled-password \
-            --home /app \
-            reflex \
- && mkdir -p /app/data \
-             /app/uploaded_files;
+ENV UV_PYTHON_DOWNLOADS=0
 
 WORKDIR /app
 
-# Setup UV (copy from astral-sh image)
-# https://docs.astral.sh/uv/guides/integration/docker/#installing-uv
-# TODO: Use $REGISTRY_GHCR?
-COPY --from=ghcr.io/astral-sh/uv:0.8.13 \
-    /uv /uvx \
-    /bin/
-
-# Install libpq-dev for psycopg (skip if not using postgres).
-# RUN apt-get update -y && apt-get install -y libpq-dev && rm -rf /var/lib/apt/lists/*
-
-# +++++++++++++++
-# Builder Target
-# +++++++++++++++
-FROM base AS builder
-
-# Install dependencies
 RUN --mount=type=cache,target=/root/.cache/uv \
     --mount=type=bind,source=uv.lock,target=uv.lock \
     --mount=type=bind,source=pyproject.toml,target=pyproject.toml \
     uv sync --locked \
-            --compile-bytecode \
-            --no-install-project;
+            --no-install-project \
+            --no-dev;
 
-COPY . .
+COPY . /app
 
-# Build frontend
 RUN --mount=type=cache,target=/root/.cache/uv \
-    uv run reflex export --frontend-only \
-                         --no-zip;
+    uv sync --locked \
+            --no-dev;
 
-# +++++++++++++++
-# Frontend Target
-# +++++++++++++++
-FROM ${REGISTRY_DOCKER}/library/caddy:2.10 AS app-frontend
 
-ARG APP_FRONTEND_FQDN
-ARG APP_BACKEND_FQDN
-ARG APP_BACKEND_PORT
+# ++++++++++++++
+#   App Target
+# ++++++++++++++
+FROM registry.poppet.io/dockerhub/library/python:3.13-slim-trixie AS app
 
-COPY <<EOF /etc/caddy/Caddyfile
-localhost
+ENV USER_ID=1000
+ENV GROUP_ID=1000
 
-encode gzip
-tls internal
-
-@backend_routes path /_event/* /ping /_upload /_upload/*
-handle @backend_routes {
-	reverse_proxy backend:8000
-}
-
-root * /srv
-route {
-	try_files {path} {path}/ /404.html
-	file_server
-}
-EOF
+RUN groupadd --system \
+             --gid "$GROUP_ID" ccc \
+ && useradd --system \
+            --gid "$GROUP_ID" \
+            --uid "$USER_ID" \
+            --create-home ccc;
 
 COPY --from=builder \
-      /app/.web/build/client \
-      /srv
+     --chown=ccc:ccc \
+     /app /app
 
-# +++++++++++++++
-# Backend Target
-# +++++++++++++++
-FROM base AS app-backend
+ENV PATH="/app/.venv/bin:$PATH"
 
-ARG APP_BACKEND_PORT
+USER ccc
 
-USER reflex
+WORKDIR /app
 
-# Needed until Reflex properly passes SIGTERM on backend.
-STOPSIGNAL SIGKILL
-
-COPY --from=builder \
-     --chown=reflex \
-     /app \
-     /app
-
-# Always apply migrations before starting the backend.
-CMD [ -d alembic ] \
- && uv run reflex db migrate; \
-    exec uv run reflex run --env prod \
-                           --loglevel debug \
-                           --backend-only \
-                           --backend-port ${APP_BACKEND_PORT:-8000}
+CMD ["python3", "app.py"]

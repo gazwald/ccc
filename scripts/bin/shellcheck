@@ -10,5 +10,5 @@ echo "+++ Shellcheck +++"
 # shellcheck disable=SC2046
 docker run "${COMMON_RUN_ARGS[@]}" \
            --mount "type=bind,src=${PWD},dst=/mnt" \
-           "${REGISTRY_DOCKER}/koalaman/shellcheck:stable" \
+           "${DOCKER_IMAGE_SHELLCHECK}" \
            $(find ./scripts -type f)

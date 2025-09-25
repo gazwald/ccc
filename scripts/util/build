@@ -12,22 +12,10 @@ DYNAMIC_BUILD_ARGS=(
 ECHO_CONTAINER="true"
 
 case $CONTAINER in
-  frontend)
+  app)
     DYNAMIC_BUILD_ARGS+=(
-      --target "app-frontend"
+      --target "app"
       --file "docker/Dockerfile"
-      --build-arg "APP_FRONTEND_FQDN=${APP_FRONTEND_FQDN}"
-      --build-arg "APP_BACKEND_FQDN=${APP_BACKEND_FQDN}"
-      --build-arg "APP_BACKEND_PORT=${APP_BACKEND_PORT}"
-    )
-    ;;
-  backend)
-    DYNAMIC_BUILD_ARGS+=(
-      --target "app-backend"
-      --file "docker/Dockerfile"
-      --build-arg "APP_FRONTEND_FQDN=${APP_FRONTEND_FQDN}"
-      --build-arg "APP_BACKEND_FQDN=${APP_BACKEND_FQDN}"
-      --build-arg "APP_BACKEND_PORT=${APP_BACKEND_PORT}"
     )
     ;;
   tools)
