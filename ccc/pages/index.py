@@ -2,6 +2,7 @@ from typing import cast
 
 from nicegui import app, run, ui
 from nicegui.binding import BindableProperty
+from nicegui.elements.button import Button
 from nicegui.elements.grid import Grid
 
 from ccc.components.handler import WorkflowHandler
@@ -25,16 +26,18 @@ def _toggle_random_seed():
 
 
 def _workflow_update() -> None:
-    workflow: type[Workflow] = workflow_factory(
-        "txt2img",
-        cast(str, app.storage.user.get("workflow", DEFAULT_WORKFLOW)),
-        None,
-    )
+    workflow_name: str | None = app.storage.user.get("workflow")
+    if workflow_name is None or workflow_name not in AVAILABLE_WORKFLOWS:
+        workflow_name = DEFAULT_WORKFLOW
+        app.storage.user["workflow"] = workflow_name
+
+    workflow: type[Workflow] = workflow_factory("txt2img", workflow_name, None)
     app.storage.user["steps"] = workflow.defaults["steps"]
     app.storage.user["scheduler"] = workflow.defaults["scheduler"]
     app.storage.user["sampler"] = workflow.defaults["sampler"]
     app.storage.user["guidance"] = workflow.defaults["guidance"]
     app.storage.user["steps"] = workflow.defaults["steps"]
+    _sidebar.refresh()
 
 
 def _prompt() -> Prompt:
@@ -54,6 +57,7 @@ def _prompt() -> Prompt:
     )
 
 
+@ui.refreshable
 def _sidebar():
     if not app.storage.user.get("workflow"):
         _workflow_update()
@@ -126,14 +130,16 @@ class Gen:
         user_id: str,
         workflow_name: str,
         prompt: Prompt,
+        button: Button,
     ):
         logger.info(f"{self.__str__()}.generate called with {user_id}, {workflow_name}")
         self.user_id = user_id
         self.workflow_name = workflow_name
         self.prompt = prompt
-
+        button.disable()
         await run.io_bound(self._generate)
         self.image = self.workflow_handler.image
+        button.enable()
         _main.refresh()
 
     def _generate(self):
@@ -152,12 +158,14 @@ def _main(gen):
         ui.image(gen.image).bind_source(gen.image)
         ui.button(
             "Generate",
-            on_click=lambda: gen.generate(
+            on_click=lambda e: gen.generate(
                 app.storage.browser["id"],
                 app.storage.user["workflow"],
                 _prompt(),
+                e.sender,
             ),
         )
+        ui.button("Download", on_click=lambda: ui.download.content(gen.image, "image.png"))
 
 
 @ui.page("/")
