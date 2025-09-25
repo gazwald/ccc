@@ -1,4 +1,5 @@
 .states
+.nicegui
 assets/external/
 *.db
 .web
