@@ -3,10 +3,9 @@ from typing import cast
 from nicegui import app, run, ui
 from nicegui.binding import BindableProperty
 from nicegui.elements.grid import Grid
-from PIL.Image import Image as ImageType
 
-from ccc.backend.handler import WorkflowHandler
-from ccc.components.models.base import Sampler, Scheduler, WorkflowType
+from ccc.components.handler import WorkflowHandler
+from ccc.components.models.base import Sampler, Scheduler
 from ccc.components.models.prompt import Prompt
 from ccc.components.models.workflow import Workflow
 from ccc.components.workflows.factory import AVAILABLE_WORKFLOWS, workflow_factory
