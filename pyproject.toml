@@ -8,7 +8,6 @@ dependencies = [
     "nicegui>=2.24.1",
     "numpy>=2.3.3",
     "pillow>=11.3.0",
-    "reflex>=0.8.7",
     "requests>=2.32.5",
 ]
 
