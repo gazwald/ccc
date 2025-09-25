@@ -12,7 +12,7 @@ if TYPE_CHECKING:
     from typing import Final
 
 DEFAULT_OUTPUT_PATH: Final[Path] = Path("output")
-DEFAULT_WORKFLOW: Final[str] = "sdxl"
+DEFAULT_WORKFLOW: Final[str] = "sd"
 DEFAULT_WORKFLOW_TIMEOUT: Final[timedelta] = timedelta(minutes=3)
 DEFAULT_IMAGE = Image.new(
     mode="RGB",

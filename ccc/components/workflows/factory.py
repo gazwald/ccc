@@ -15,7 +15,7 @@ WORKFLOWS: dict[
     WorkflowType,
     dict[str, type[Workflow]],
 ] = {
-    "txt2img": {"sdxl": StableDiffusion},
+    "txt2img": {"sd": StableDiffusion},
 }
 AVAILABLE_WORKFLOWS: Final[dict[str, str]] = {
     key: workflow.description for key, workflow in WORKFLOWS["txt2img"].items()
