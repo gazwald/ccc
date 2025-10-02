@@ -1,0 +1,21 @@
+FROM registry.poppet.io/dockerhub/rocm/pytorch:rocm6.4.3_ubuntu24.04_py3.12_pytorch_release_2.6.0
+
+ENV COMFYUI_DIR="/app/ComfyUI"
+
+RUN git clone --branch master \
+              --depth 1 \
+              https://github.com/comfyanonymous/ComfyUI.git \
+              "${COMFYUI_DIR}";
+
+WORKDIR "$COMFYUI_DIR"
+
+RUN --mount=type=cache,target=/root/.cache/pip \
+    pip install --extra-index-url https://download.pytorch.org/whl/rocm6.4 \
+                --requirement requirements.txt
+
+CMD ["python", "main.py", "--listen", \
+                          "--fast", \
+                          "--disable-all-custom-nodes", \
+                          "--disable-api-nodes", \
+                          "--disable-metadata" \
+    ]

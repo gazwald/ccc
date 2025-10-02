@@ -6,6 +6,22 @@ services:
     restart: always
     depends_on:
       - db
+      - comfyui
+
+  comfyui:
+    image: registry.poppet.io/ccc-comfyui:latest
+    ports:
+      - 8188:8188
+    devices:
+      - /dev/kfd
+      - /dev/dri
+    group_add:
+      - video
+    shm_size: '32g'
+    restart: always
+    volumes:
+      - ./models:/app/ComfyUI/models
+
 
   postgres:
     image: registry.poppet.io/dockerhub/library/postgres:latest

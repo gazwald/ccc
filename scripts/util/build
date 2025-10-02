@@ -24,6 +24,12 @@ case $CONTAINER in
     )
     ECHO_CONTAINER="false"
     ;;
+  comfyui)
+    DYNAMIC_BUILD_ARGS+=(
+      --file "docker/Dockerfile.comfyui"
+    )
+    ;;
+
   *)
     echo "$CONTAINER is unknown?"
     exit 1
