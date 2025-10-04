@@ -8,15 +8,28 @@ from ccc.components.models.base import BaseModel
 
 class DatabaseConfig(BaseModel):
     scheme: Literal["sqlite", "postgres"] = "sqlite"
-    filename: Literal["ccc.db", ":memory:"] = "ccc.db"
+    host: str = "127.0.0.1"
+    port: PositiveInt = 5432
+    database: str = "ccc"
+    username: str = "ccc"
+    password: str = "password"
 
     @property
     def path(self) -> Path:
-        return Path(self.filename)
+        return Path(f"{self.database}.db")
 
     @property
     def uri(self) -> str:
-        return f"{self.scheme}:///{self.filename}"
+        match self.scheme:
+            case "sqlite":
+                return f"{self.scheme}:///{self.path}"
+            case "postgres":
+                return (
+                    f"{self.scheme}://"
+                    f"{self.username}:{self.password}"
+                    "@"
+                    f"{self.host}:{self.port}/{self.database}"
+                )
 
 
 class ConnectionConfig(BaseModel):

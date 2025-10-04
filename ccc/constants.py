@@ -26,3 +26,5 @@ MAX_CFG: Final[int] = 20
 
 AVAILABLE_SCHEDULERS: Final[tuple[Scheduler, ...]] = get_args(Scheduler)
 AVAILABLE_SAMPLERS: Final[tuple[Sampler, ...]] = get_args(Sampler)
+
+UNRESTRICTED_PAGE_ROUTES: set[str] = {"/login"}

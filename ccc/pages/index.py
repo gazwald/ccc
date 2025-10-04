@@ -6,6 +6,7 @@ from nicegui.elements.button import Button
 from nicegui.elements.grid import Grid
 
 from ccc.components.handler import WorkflowHandler
+from ccc.components.interface import menu
 from ccc.components.models.base import Sampler, Scheduler
 from ccc.components.models.prompt import Prompt
 from ccc.components.models.workflow import Workflow
@@ -174,5 +175,7 @@ def index() -> Grid:
     with ui.grid(columns=2) as index:
         _sidebar()
         _main(gen)
+
+    menu()
 
     return index
