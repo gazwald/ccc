@@ -5,7 +5,7 @@ import json
 from datetime import datetime, timedelta
 from pprint import pprint
 from time import sleep
-from typing import TYPE_CHECKING, TypeVar
+from typing import TYPE_CHECKING
 from urllib.parse import urlencode, urljoin
 
 from PIL import Image
@@ -26,8 +26,6 @@ if TYPE_CHECKING:
     from typing import Callable, Generator, Iterator
 
     from PIL.ImageFile import ImageFile
-
-CallbackReturn = TypeVar("CallbackReturn")
 
 
 class BaseEndpoint:
@@ -78,7 +76,7 @@ class BaseEndpoint:
     def build_and_send(self, *args, **kwargs) -> Response | None:
         return self.send(self.build(*args, **kwargs))
 
-    def ws(
+    def ws[CallbackReturn](
         self,
         url: str,
         callback: Callable[[Data], CallbackReturn],
