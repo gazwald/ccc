@@ -1,0 +1,17 @@
+---
+name: Python
+
+on:
+  workflow_call:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        script: ['isort', 'black', 'pyright']
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+      - name: "Linting: ${{ matrix.script }}"
+        run: "scripts/bin/${{ matrix.script }}"
