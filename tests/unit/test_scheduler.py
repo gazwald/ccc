@@ -10,6 +10,8 @@ from ccc.components.scheduler import Scheduler
 if TYPE_CHECKING:
     from _pytest.mark.structures import ParameterSet
 
+pytestmark = pytest.mark.scheduler
+
 
 @dataclass
 class Scenario:

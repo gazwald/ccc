@@ -17,3 +17,10 @@ dev = [
     "pyright>=1.1.405",
     "pytest>=8.4.2",
 ]
+
+[tool.pytest.ini_options]
+minversion = "8.0"
+markers = [
+    "workflow",
+    "scheduler",
+]
