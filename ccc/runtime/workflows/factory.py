@@ -2,10 +2,10 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING, overload
 
-from ccc.components.workflows.txt2img.sd15 import StableDiffusion
 from ccc.models.base import WorkflowType
 from ccc.models.prompt import Prompt
 from ccc.models.workflow import Workflow
+from ccc.runtime.workflows.txt2img.sd15 import StableDiffusion
 from ccc.utils.logger import logger
 
 if TYPE_CHECKING:

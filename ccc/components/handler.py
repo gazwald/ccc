@@ -3,9 +3,9 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 from ccc.components.endpoints import ComfyUI
-from ccc.components.workflows.factory import workflow_factory
 from ccc.config import app_config
 from ccc.constants import DEFAULT_IMAGE
+from ccc.runtime.workflows.factory import workflow_factory
 from ccc.utils.logger import logger
 
 if TYPE_CHECKING:

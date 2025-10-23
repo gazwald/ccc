@@ -1,9 +1,9 @@
 import json
 
-from ccc.components.workflows.nodes import noder
 from ccc.models.enums import NodeClassType as NCT
 from ccc.models.enums import NodeID
 from ccc.models.workflow import Workflow, WorkflowDefaults
+from ccc.runtime.workflows.nodes import noder
 
 
 class StableDiffusion(Workflow):
