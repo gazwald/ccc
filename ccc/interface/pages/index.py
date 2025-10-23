@@ -6,12 +6,12 @@ from nicegui.elements.button import Button
 from nicegui.elements.grid import Grid
 
 from ccc.components.handler import WorkflowHandler
-from ccc.components.interface import menu
 from ccc.components.models.base import Sampler, Scheduler
 from ccc.components.models.prompt import Prompt
 from ccc.components.models.workflow import Workflow
 from ccc.components.workflows.factory import AVAILABLE_WORKFLOWS, workflow_factory
 from ccc.constants import AVAILABLE_SAMPLERS, AVAILABLE_SCHEDULERS, DEFAULT_IMAGE, DEFAULT_WORKFLOW
+from ccc.interface.parts.menu import menu
 from ccc.utils.logger import logger
 from ccc.utils.seed import generate_seed
 

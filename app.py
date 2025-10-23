@@ -2,8 +2,8 @@
 from nicegui import app, ui
 
 from ccc.components.auth import AuthMiddleware
-from ccc.pages.index import index
-from ccc.pages.login import login
+from ccc.interface.pages.index import index
+from ccc.interface.pages.login import login
 
 app.add_middleware(AuthMiddleware)
 
