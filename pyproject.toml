@@ -5,6 +5,7 @@ description = "Cursed Content Creator"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
+    "click>=8.3.0",
     "nicegui>=2.24.1",
     "numpy>=2.3.3",
     "pillow>=11.3.0",
@@ -18,9 +19,21 @@ dev = [
     "pytest>=8.4.2",
 ]
 
+[project.scripts]
+ccc-cli = "ccc.cli.main:cli"
+
 [tool.pytest.ini_options]
 minversion = "8.0"
 markers = [
     "workflow",
     "scheduler",
 ]
+
+
+[build-system]
+requires = ["uv_build >= 0.9.5, <0.10.0"]
+build-backend = "uv_build"
+
+[tool.uv.build-backend]
+module-root = ""
+module-name = "ccc"

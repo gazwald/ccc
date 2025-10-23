@@ -143,8 +143,9 @@ wheels = [
 [[package]]
 name = "ccc"
 version = "0.1.0"
-source = { virtual = "." }
+source = { editable = "." }
 dependencies = [
+    { name = "click" },
     { name = "nicegui" },
     { name = "numpy" },
     { name = "pillow" },
@@ -160,6 +161,7 @@ dev = [
 
 [package.metadata]
 requires-dist = [
+    { name = "click", specifier = ">=8.3.0" },
     { name = "nicegui", specifier = ">=2.24.1" },
     { name = "numpy", specifier = ">=2.3.3" },
     { name = "pillow", specifier = ">=11.3.0" },
