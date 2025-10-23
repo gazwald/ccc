@@ -5,7 +5,7 @@ from typing import TYPE_CHECKING
 
 import pytest
 
-from ccc.components.scheduler import Scheduler
+from ccc.runtime.scheduler import Scheduler
 
 if TYPE_CHECKING:
     from typing import Literal

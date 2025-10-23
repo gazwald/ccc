@@ -5,12 +5,12 @@ from nicegui.binding import BindableProperty
 from nicegui.elements.button import Button
 from nicegui.elements.grid import Grid
 
-from ccc.components.handler import WorkflowHandler
 from ccc.constants import AVAILABLE_SAMPLERS, AVAILABLE_SCHEDULERS, DEFAULT_IMAGE, DEFAULT_WORKFLOW
 from ccc.interface.parts.menu import menu
 from ccc.models.base import Sampler, Scheduler
 from ccc.models.prompt import Prompt
 from ccc.models.workflow import Workflow
+from ccc.runtime.handler import WorkflowHandler
 from ccc.runtime.workflows.factory import AVAILABLE_WORKFLOWS, workflow_factory
 from ccc.utils.logger import logger
 from ccc.utils.seed import generate_seed

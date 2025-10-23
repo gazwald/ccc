@@ -2,9 +2,9 @@ from typing import Generator
 
 import pytest
 
-from ccc.components.handler import WorkflowHandler
 from ccc.models.config import Config
 from ccc.models.prompt import Prompt
+from ccc.runtime.handler import WorkflowHandler
 from tests.unit.fixtures.workflow import MockWorkflow
 
 
