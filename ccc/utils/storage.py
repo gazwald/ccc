@@ -4,7 +4,8 @@ from typing import TYPE_CHECKING
 
 from nicegui import app
 
-from ccc.components.models.prompt import Prompt
+if TYPE_CHECKING:
+    from ccc.components.models.prompt import Prompt
 
 
 def prompt_from_storage() -> Prompt:
