@@ -1,13 +1,15 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import TYPE_CHECKING, Literal
+from typing import TYPE_CHECKING
 
 import pytest
 
 from ccc.components.scheduler import Scheduler
 
 if TYPE_CHECKING:
+    from typing import Literal
+
     from _pytest.mark.structures import ParameterSet
 
 pytestmark = pytest.mark.scheduler

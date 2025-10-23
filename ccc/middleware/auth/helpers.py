@@ -3,11 +3,11 @@ from typing import TYPE_CHECKING
 from nicegui import app, ui
 from sqlalchemy import select
 
-from ccc.components.orm.db import with_session
-from ccc.components.orm.tables import User
+from ccc.models.orm.db import with_session
+from ccc.models.orm.tables import User
 
 if TYPE_CHECKING:
-    from ccc.components.orm.db import NewSession
+    from ccc.models.orm.db import NewSession
 
 
 def logout() -> None:

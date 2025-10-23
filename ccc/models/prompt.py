@@ -5,9 +5,9 @@ from time import time_ns
 from pydantic.fields import Field
 from pydantic.types import PositiveFloat, PositiveInt
 
-from ccc.components.models.base import BaseModel
-from ccc.components.models.types import Sampler, Scheduler
 from ccc.constants import MAX_CFG, MAX_SEED, MAX_STEPS
+from ccc.models.base import BaseModel
+from ccc.models.types import Sampler, Scheduler
 from ccc.utils.seed import generate_seed
 
 

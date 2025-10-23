@@ -3,8 +3,8 @@ from typing import Generator
 import pytest
 
 from ccc.components.handler import WorkflowHandler
-from ccc.components.models.config import Config
-from ccc.components.models.prompt import Prompt
+from ccc.models.config import Config
+from ccc.models.prompt import Prompt
 from tests.unit.fixtures.workflow import MockWorkflow
 
 

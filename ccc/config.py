@@ -1,6 +1,6 @@
 from functools import cache
 
-from ccc.components.models.config import Config
+from ccc.models.config import Config
 
 
 @cache

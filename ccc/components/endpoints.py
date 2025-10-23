@@ -15,11 +15,11 @@ from requests.sessions import Session
 from websockets.sync.client import connect
 from websockets.typing import Data
 
-from ccc.components.models.config import Config
-from ccc.components.models.enums import NodeID
-from ccc.components.models.workflow import WorkflowState, WorkflowStatus
 from ccc.config import app_config
 from ccc.constants import DEFAULT_WORKFLOW_TIMEOUT
+from ccc.models.config import Config
+from ccc.models.enums import NodeID
+from ccc.models.workflow import WorkflowState, WorkflowStatus
 from ccc.utils.logger import logger
 
 if TYPE_CHECKING:

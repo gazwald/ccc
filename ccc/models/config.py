@@ -3,7 +3,7 @@ from typing import Literal
 
 from pydantic.types import PositiveFloat, PositiveInt
 
-from ccc.components.models.base import BaseModel
+from ccc.models.base import BaseModel
 
 
 class DatabaseConfig(BaseModel):

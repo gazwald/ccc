@@ -12,9 +12,9 @@ if TYPE_CHECKING:
     from PIL.Image import Image
     from PIL.ImageFile import ImageFile
 
-    from ccc.components.models.config import Config
-    from ccc.components.models.prompt import Prompt
-    from ccc.components.models.workflow import Workflow, WorkflowState
+    from ccc.models.config import Config
+    from ccc.models.prompt import Prompt
+    from ccc.models.workflow import Workflow, WorkflowState
 
 
 class WorkflowHandler:

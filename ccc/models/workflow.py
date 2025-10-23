@@ -5,10 +5,10 @@ from datetime import timedelta
 from enum import Enum, auto
 from typing import TYPE_CHECKING, TypedDict
 
-from ccc.components.models.base import BaseModel, Sampler, Scheduler
-from ccc.components.models.enums import NodeID
-from ccc.components.models.prompt import Prompt
-from ccc.components.models.types import DiffussionModel, KSampler, LatentEmpty, LatentImage
+from ccc.models.base import BaseModel, Sampler, Scheduler
+from ccc.models.enums import NodeID
+from ccc.models.prompt import Prompt
+from ccc.models.types import DiffussionModel, KSampler, LatentEmpty, LatentImage
 
 if TYPE_CHECKING:
     from typing import ClassVar

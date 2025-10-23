@@ -1,7 +1,7 @@
-from ccc.components.models.enums import NodeClassType as NCT
-from ccc.components.models.enums import NodeID
-from ccc.components.models.prompt import EmptyLatentImage
-from ccc.components.models.types import KSampler, LatentImage
+from ccc.models.enums import NodeClassType as NCT
+from ccc.models.enums import NodeID
+from ccc.models.prompt import EmptyLatentImage
+from ccc.models.types import KSampler, LatentImage
 
 
 def noder(class_type: NCT, *args, **kwargs) -> dict:

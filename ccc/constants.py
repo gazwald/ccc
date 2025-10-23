@@ -6,7 +6,7 @@ from typing import TYPE_CHECKING, get_args
 
 from PIL import Image
 
-from ccc.components.models.base import Sampler, Scheduler
+from ccc.models.base import Sampler, Scheduler
 
 if TYPE_CHECKING:
     from typing import Final

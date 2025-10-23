@@ -12,8 +12,8 @@ from heapq import heappop, heappush
 from itertools import count
 from time import sleep
 
-from ccc.components.models.prompt import Prompt
-from ccc.components.models.workflow import Workflow
+from ccc.models.prompt import Prompt
+from ccc.models.workflow import Workflow
 
 
 class JobStatus(Enum):

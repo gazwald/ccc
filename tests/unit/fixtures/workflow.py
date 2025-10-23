@@ -2,9 +2,9 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from ccc.components.models.enums import NodeClassType as NCT
-from ccc.components.models.workflow import Workflow
 from ccc.components.workflows.nodes import noder
+from ccc.models.enums import NodeClassType as NCT
+from ccc.models.workflow import Workflow
 
 if TYPE_CHECKING:
     from typing import ClassVar
