@@ -2,6 +2,12 @@ from enum import Enum, auto, unique
 from typing import Any
 
 
+class DatabaseState(Enum):
+    INITIALISED = auto()
+    NOT_INITIALISED = auto()
+    PARTIAL = auto()
+
+
 class Strint(Enum):
     @property
     def value(self) -> Any:

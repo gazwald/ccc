@@ -5,8 +5,7 @@ services:
       - 8080:8080
     restart: always
     depends_on:
-      - db
-      - comfyui
+      - postgres
 
   comfyui:
     image: registry.poppet.io/ccc-comfyui:latest
@@ -21,10 +20,12 @@ services:
     restart: always
     volumes:
       - ./data/comfyui/models:/app/ComfyUI/models
+    profiles:
+      - dev
 
 
   postgres:
-    image: registry.poppet.io/dockerhub/library/postgres:latest
+    image: registry.poppet.io/dockerhub/library/postgres:18.0-trixie
     restart: always
     shm_size: 128mb
     environment:

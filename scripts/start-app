@@ -6,7 +6,7 @@ cd "$(git rev-parse --show-toplevel)"
 source scripts/env
 
 ./scripts/util/build app
-./scripts/util/build comfyui
+# ./scripts/util/build comfyui
 
 trap "./scripts/stop-app" EXIT
 

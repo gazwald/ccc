@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from datetime import timedelta
 from typing import Optional
 
 from sqlalchemy import ForeignKey
@@ -24,7 +25,7 @@ class User(Base):
 class Prompt(Base):
     __tablename__ = "prompt"
     prompt: Mapped[dict] = mapped_column(JSON)
-    processing_duration: Mapped[Interval]
+    processing_duration: Mapped[timedelta] = mapped_column(Interval)
 
     user_id: Mapped[int] = mapped_column(ForeignKey("user_account.id"))
     user: Mapped[User] = relationship(back_populates="last_prompt")

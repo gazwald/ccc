@@ -1,7 +1,7 @@
 # +++++++++++++++
 #     Builder
 # +++++++++++++++
-FROM registry.poppet.io/ghcr/astral-sh/uv:0.8-python3.13-trixie-slim AS builder
+FROM registry.poppet.io/ghcr/astral-sh/uv:0.9-python3.13-trixie-slim AS builder
 
 ENV UV_COMPILE_BYTECODE=1
 ENV UV_LINK_MODE=copy
@@ -48,4 +48,4 @@ USER ccc
 
 WORKDIR /app
 
-CMD ["python3", "app.py"]
+CMD ["ccc-cli", "interface"]

@@ -7,7 +7,7 @@ source scripts/env
 
 CONTAINER=$1
 DYNAMIC_BUILD_ARGS=(
-  --tag "${APP_NAME}-${CONTAINER}:latest" \
+  --tag "${DOCKER_REGISTRY}/${APP_NAME}-${CONTAINER}:latest"
 )
 ECHO_CONTAINER="true"
 
@@ -16,6 +16,7 @@ case $CONTAINER in
     DYNAMIC_BUILD_ARGS+=(
       --target "app"
       --file "docker/Dockerfile"
+      --tag "${DOCKER_REGISTRY}/${APP_NAME}-${CONTAINER}:${APP_VERSION}"
     )
     ;;
   tools)

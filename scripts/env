@@ -4,6 +4,7 @@ set -eou pipefail
 
 # Build and runtime app vars
 export APP_NAME='ccc'
+export APP_VERSION=$(uv version --short)
 export APP_DOMAIN='poppet.io'
 
 export DOCKER_REGISTRY="registry.poppet.io"
