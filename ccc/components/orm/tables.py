@@ -2,9 +2,9 @@ from __future__ import annotations
 
 from typing import Optional
 
-from sqlalchemy import ForeignKey, String
+from sqlalchemy import ForeignKey
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
-from sqlalchemy.types import JSON
+from sqlalchemy.types import JSON, Interval, String
 
 
 class Base(DeclarativeBase):
@@ -24,7 +24,7 @@ class User(Base):
 class Prompt(Base):
     __tablename__ = "prompt"
     prompt: Mapped[dict] = mapped_column(JSON)
-    processed: Mapped[bool] = mapped_column(default=False)
+    processing_duration: Mapped[Interval]
 
     user_id: Mapped[int] = mapped_column(ForeignKey("user_account.id"))
     user: Mapped[User] = relationship(back_populates="last_prompt")
