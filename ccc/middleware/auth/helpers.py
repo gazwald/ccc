@@ -1,17 +1,13 @@
 from typing import TYPE_CHECKING
 
-from fastapi import Request
-from fastapi.responses import RedirectResponse
 from nicegui import app, ui
 from sqlalchemy import select
-from starlette.middleware.base import BaseHTTPMiddleware
 
-from ccc.components.orm.db import NewSession, with_session
+from ccc.components.orm.db import with_session
 from ccc.components.orm.tables import User
-from ccc.constants import UNRESTRICTED_PAGE_ROUTES
 
 if TYPE_CHECKING:
-    ...
+    from ccc.components.orm.db import NewSession
 
 
 def logout() -> None:
@@ -45,22 +41,4 @@ def authenticate(username: str, password: str, session: NewSession = None) -> bo
 
 @with_session
 def register(username: str, password: str, session: NewSession = None) -> bool:
-    pass
-
-
-class AuthMiddleware(BaseHTTPMiddleware):
-    """
-    This middleware restricts access to all NiceGUI pages.
-
-    It redirects the user to the login page if they are not authenticated.
-    """
-
-    async def dispatch(self, request: Request, call_next):
-        if not app.storage.user.get("authenticated", False):
-            if (
-                not request.url.path.startswith("/_nicegui")
-                and request.url.path not in UNRESTRICTED_PAGE_ROUTES
-            ):
-                return RedirectResponse(f"/login?redirect_to={request.url.path}")
-
-        return await call_next(request)
+    raise NotImplementedError

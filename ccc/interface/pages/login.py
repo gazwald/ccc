@@ -1,7 +1,7 @@
 from fastapi.responses import RedirectResponse
 from nicegui import app, ui
 
-from ccc.components.auth import authenticate
+from ccc.middleware.auth.helpers import authenticate
 
 
 @ui.page("/login")
