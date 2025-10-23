@@ -1,6 +1,6 @@
 from nicegui import ui
 
-from ccc.components.auth import is_authenticated, logout
+from ccc.middleware.auth.helpers import is_authenticated, logout
 
 
 def menu():
